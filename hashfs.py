@@ -101,6 +101,8 @@ class MyOperations(FuseOperations):
         return self.fd
     
     def read(self, path, size, offset, fh):
+        if (offset == 0):
+            self.temp[path] = None
         if (not self.temp.has_key(path)):
             self.temp[path] = self.client.get(path)
         data = self.temp[path][offset:offset + size]
@@ -121,8 +123,8 @@ class MyOperations(FuseOperations):
     def rmdir(self, path):
         return self.unlink(path)
     
-    def statvfs(self, path):
-        return dict(f_bsize=512, f_blocks=1048576, f_bavail=107374182400)
+#    def statvfs(self, path):
+#        return dict(f_bsize=512, f_blocks=1048576, f_bavail=107374182400)
     
 #    def symlink(self, source, target):
 #        self.files[target] = dict(st_mode=(S_IFLNK | 0777), st_nlink=1,
