@@ -1,8 +1,9 @@
 import md5
 import pickle
 import sys
+import os
 
-sys.path.insert(0, 'gen-py')
+sys.path.insert(0, os.path.dirname(sys.argv[0]) + '/lib')
 from thrift import Thrift
 from thrift.transport import TSocket
 from thrift.transport import TTransport
